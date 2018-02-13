@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Python 小工具--球球大作战领棒棒糖 | Astone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近迷上了球球大作战, 每天晚上都要玩一会. 游戏里的棒棒糖就是类似金币元宝之类的消费货币. 游戏中有一个分享二维码送棒棒糖的任务, 每天可以领5个棒棒糖. 朋友扫二维码或者访问链接我就可以得到棒棒糖了.　　既然只是一个 Http 访问而已, 那么每天定时访问就可以自动的把任务做完了. 链接的地址大概是这样的 http://t.cn/Rta1ive, 点进去之后会跳转到 battleofbal">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 小工具--球球大作战领棒棒糖">
+<meta property="og:url" content="http://astone.space/2016/11/25/Python/Python 小工具--球球大作战领棒棒糖/index.html">
+<meta property="og:site_name" content="Astone">
+<meta property="og:description" content="最近迷上了球球大作战, 每天晚上都要玩一会. 游戏里的棒棒糖就是类似金币元宝之类的消费货币. 游戏中有一个分享二维码送棒棒糖的任务, 每天可以领5个棒棒糖. 朋友扫二维码或者访问链接我就可以得到棒棒糖了.　　既然只是一个 Http 访问而已, 那么每天定时访问就可以自动的把任务做完了. 链接的地址大概是这样的 http://t.cn/Rta1ive, 点进去之后会跳转到 battleofbal">
+<meta property="og:updated_time" content="2018-02-12T13:35:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 小工具--球球大作战领棒棒糖">
+<meta name="twitter:description" content="最近迷上了球球大作战, 每天晚上都要玩一会. 游戏里的棒棒糖就是类似金币元宝之类的消费货币. 游戏中有一个分享二维码送棒棒糖的任务, 每天可以领5个棒棒糖. 朋友扫二维码或者访问链接我就可以得到棒棒糖了.　　既然只是一个 Http 访问而已, 那么每天定时访问就可以自动的把任务做完了. 链接的地址大概是这样的 http://t.cn/Rta1ive, 点进去之后会跳转到 battleofbal">
+  
+    <link rel="alternative" href="/atom.xml" title="Astone" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Astone</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Keep It Simple, Stupid.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+
+					
+
+					
+					<p class="header-subtitle">caliburn_marco@163.com</p>
+					
+
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Astone</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Astone</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Keep It Simple, Stupid.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Python/Python 小工具--球球大作战领棒棒糖" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/25/Python/Python 小工具--球球大作战领棒棒糖/" class="article-date">
+  	<time datetime="2016-11-25T12:28:00.000Z" itemprop="datePublished">2016-11-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python 小工具--球球大作战领棒棒糖
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Python-小工具/">Python 小工具</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　最近迷上了球球大作战, 每天晚上都要玩一会. 游戏里的棒棒糖就是类似金币元宝之类的消费货币. 游戏中有一个分享二维码送棒棒糖的任务, 每天可以领5个棒棒糖. 朋友扫二维码或者访问链接我就可以得到棒棒糖了.<br>　　既然只是一个 Http 访问而已, 那么每天定时访问就可以自动的把任务做完了. 链接的地址大概是这样的 <a href="http://t.cn/Rta1ive" target="_blank" rel="external">http://t.cn/Rta1ive</a>, 点进去之后会跳转到 battleofballs 的网站上, 上面有自己的 ID 和昵称. 浏览器点开 F12 查看 Network 选项, 发现了关键的链接 <a href="http://cn.battleofballs.com/share?type=1&amp;id=174777161" target="_blank" rel="external">http://cn.battleofballs.com/share?type=1&amp;id=174777161</a>. 看样子就是通过这个链接获取棒棒糖了.<br>　　依照惯例, 这个是有 IP 过滤的. 果然, 重复这个链接返回了 error. 这样的话就得需要弄5个 IP 了. 到网上看看有没有现成的, 发现网上有好多的这种网站. 既然有现成的那我就不去弄 IP 了. 直接找了一个 <a href="http://www.qqdzz.net" target="_blank" rel="external">http://www.qqdzz.net</a>.<br>　　python 的 http 访问当然用 <a href="http://www.python-requests.org/en/master/" target="_blank" rel="external">requests</a>. 核心代码如下:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">headers = &#123;<span class="string">'User-Agent'</span>: <span class="string">'Wget/1.12'</span>,</span><br><span class="line">           <span class="string">'Accept'</span>: <span class="string">'*/*'</span>,</span><br><span class="line">           <span class="string">'Host'</span>: <span class="string">'www.qqdzz.net'</span>,</span><br><span class="line">           <span class="string">'Referer'</span>: <span class="string">'http://www.qqdzz.net/'</span></span><br><span class="line">           <span class="string">'Connection'</span>: <span class="string">'Keep-Alive'</span>&#125;</span><br><span class="line">url = <span class="string">'http://www.qqdzz.net/do.php'</span></span><br><span class="line">rsp = requests.get(url, headers=headers)</span><br></pre></td></tr></table></figure></p>
+<p>　　代码中的 Referer 是必须的, 服务器有验证. 再给代码补上配置, 循环, daemon 大功告成. 过了一阵子之后我发现不加棒棒糖了. 于是浏览器打开 <a href="http://www.qqdzz.net" target="_blank" rel="external">http://www.qqdzz.net</a> 发现他做了一个重定向, 必须用重定向后的域名来访问. 而且貌似这个重定向的域名还经常变化. I am Angry ! 修改代码如下:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">headers = &#123;<span class="string">'User-Agent'</span>: <span class="string">'Wget/1.12'</span>,</span><br><span class="line">           <span class="string">'Accept'</span>: <span class="string">'*/*'</span>,</span><br><span class="line">           <span class="string">'Host'</span>: target_host,</span><br><span class="line">           <span class="string">'Connection'</span>: <span class="string">'Keep-Alive'</span>&#125;</span><br><span class="line">rsp = requests.get(target_url, headers=headers, allow_redirects=<span class="keyword">False</span>)</span><br><span class="line"><span class="keyword">if</span> rsp.status_code == <span class="number">302</span>:</span><br><span class="line">    target_host = rsp.headers[<span class="string">'location'</span>][<span class="number">7</span>:<span class="number">-1</span>]</span><br><span class="line">    target_url = <span class="string">'http://'</span> + target_host</span><br><span class="line"></span><br><span class="line">headers[<span class="string">'Host'</span>] = target_host</span><br><span class="line">headers[<span class="string">'Referer'</span>] = target_url + <span class="string">'/'</span></span><br><span class="line"></span><br><span class="line">target_url = target_url + <span class="string">'/'</span> + method</span><br><span class="line">params = &#123;<span class="string">'url'</span> : param&#125;</span><br><span class="line">rsp = requests.get(target_url, params=params, headers=headers)</span><br></pre></td></tr></table></figure></p>
+<p>　　首先直接访问域名, 如果 302 那么更新 host 之后再用以前的方式来访问. allow_redirects 这个参数很关键. requests 真的是太热心了. 默认 allow_redirects 会自动处理 302 重定向, 导致 url 中的 host 和请求中的 Host 字段不一致, 需要关闭 allow_redirects. 另外, 调试的时候 vars 函数非常好用, 类似 php 中的 var_dump 能把类的详细信息打印出来.</p>
+<p><em>完整代码 <a href="http://git.oschina.net/astone123/python" target="_blank" rel="external">http://git.oschina.net/astone123/python</a></em></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/25/Python/Python 小工具--标签云与中文分词/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Python 小工具--标签云与中文分词
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/11/25/TCP 协议分析/TCP 协议分析--CLOSE_WAIT 状态/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">TCP 协议分析--CLOSE_WAIT 状态</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-center">
+    		&copy; 2018 Astone
+    	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+</html>

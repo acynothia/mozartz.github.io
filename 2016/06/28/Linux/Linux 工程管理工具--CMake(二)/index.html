@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Linux 工程管理工具--CMake(二) | Astone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="简介　　在上文中介绍了 CMake 的样例工程. 在实际的项目中可能有各种不同的需求. CMake 提供了一些预定义变量、辅助函数等用于帮助开发者更好的使用 CMake. 下面就将 CMake 中常用的预定义变量, 以及辅助函数进行简单的介绍方便以后查阅.
+CMake 预定义变量
+
+
+变量名　　　　　　　　　　　　　　　　　
+功能
+
+
+
+
+PROJECT_NAME
+PROJECT 命令指定的项目名">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 工程管理工具--CMake(二)">
+<meta property="og:url" content="http://astone.space/2016/06/28/Linux/Linux 工程管理工具--CMake(二)/index.html">
+<meta property="og:site_name" content="Astone">
+<meta property="og:description" content="简介　　在上文中介绍了 CMake 的样例工程. 在实际的项目中可能有各种不同的需求. CMake 提供了一些预定义变量、辅助函数等用于帮助开发者更好的使用 CMake. 下面就将 CMake 中常用的预定义变量, 以及辅助函数进行简单的介绍方便以后查阅.
+CMake 预定义变量
+
+
+变量名　　　　　　　　　　　　　　　　　
+功能
+
+
+
+
+PROJECT_NAME
+PROJECT 命令指定的项目名">
+<meta property="og:updated_time" content="2018-02-12T14:17:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux 工程管理工具--CMake(二)">
+<meta name="twitter:description" content="简介　　在上文中介绍了 CMake 的样例工程. 在实际的项目中可能有各种不同的需求. CMake 提供了一些预定义变量、辅助函数等用于帮助开发者更好的使用 CMake. 下面就将 CMake 中常用的预定义变量, 以及辅助函数进行简单的介绍方便以后查阅.
+CMake 预定义变量
+
+
+变量名　　　　　　　　　　　　　　　　　
+功能
+
+
+
+
+PROJECT_NAME
+PROJECT 命令指定的项目名">
+  
+    <link rel="alternative" href="/atom.xml" title="Astone" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Astone</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Keep It Simple, Stupid.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+
+					
+
+					
+					<p class="header-subtitle">caliburn_marco@163.com</p>
+					
+
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Astone</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Astone</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Keep It Simple, Stupid.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Linux/Linux 工程管理工具--CMake(二)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/28/Linux/Linux 工程管理工具--CMake(二)/" class="article-date">
+  	<time datetime="2016-06-28T09:33:00.000Z" itemprop="datePublished">2016-06-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux 工程管理工具--CMake(二)
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a><strong>简介</strong></h3><p>　　在上文中介绍了 CMake 的样例工程. 在实际的项目中可能有各种不同的需求. CMake 提供了一些预定义变量、辅助函数等用于帮助开发者更好的使用 CMake. 下面就将 CMake 中常用的预定义变量, 以及辅助函数进行简单的介绍方便以后查阅.</p>
+<h3 id="CMake-预定义变量"><a href="#CMake-预定义变量" class="headerlink" title="CMake 预定义变量"></a><strong>CMake 预定义变量</strong></h3><table>
+<thead>
+<tr>
+<th>变量名　　　　　　　　　　　　　　　　　</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PROJECT_NAME</td>
+<td>PROJECT 命令指定的项目名</td>
+</tr>
+<tr>
+<td>PROJECT_SOURCE_DIR</td>
+<td>PROJECT 命令的 CMakeLists.txt 所在的目录</td>
+</tr>
+<tr>
+<td>PROJECT_BINARY_DIR</td>
+<td>运行 cmake 命令的目录</td>
+</tr>
+<tr>
+<td>CMAKE_ROOT</td>
+<td>CMake 模块和文件目录</td>
+</tr>
+<tr>
+<td>CMAKE_MODULE_PATH</td>
+<td>CMake INCLUDE 模块时的搜索路径</td>
+</tr>
+<tr>
+<td>CMAKE_INCLUDE_PATH</td>
+<td>编译时 include 所包含的目录</td>
+</tr>
+<tr>
+<td>CMAKE_LIBRARY_PATH</td>
+<td>链接时 lib 所包含的目录</td>
+</tr>
+<tr>
+<td>CMAKE_CURRENT_SOURCE_DIR</td>
+<td>当前 CMakeLists.txt 所在的目录</td>
+</tr>
+<tr>
+<td>CMAKE_CURRENT_BINARY_DIR</td>
+<td>当前 CMakeLists.txt obj 的输出目录</td>
+</tr>
+<tr>
+<td>CMAKE_CURRENT_LIST_FILE</td>
+<td>当前 CMakeLists.txt 的完整路径</td>
+</tr>
+<tr>
+<td>CMAKE_CURRENT_LIST_LINE</td>
+<td>当前 CMakeLists.txt 的当前行号</td>
+</tr>
+<tr>
+<td>CMAKE_SYSTEM</td>
+<td>系统信息 eg. Linux-2.6.32-573.7.1.el6.x86_64</td>
+</tr>
+<tr>
+<td>CMAKE_SYSTEM_NAME</td>
+<td>系统名称 eg. Linux</td>
+</tr>
+<tr>
+<td>CMAKE_SYSTEM_VERSION</td>
+<td>系统版本 eg. 2.6.32-573.7.1.el6.x86_64</td>
+</tr>
+<tr>
+<td>CMAKE_SYSTEM_PROCESSOR</td>
+<td>处理器架构 eg. x86_64</td>
+</tr>
+<tr>
+<td>UNIX</td>
+<td>在所有类 UNIX 平台为 TRUE</td>
+</tr>
+<tr>
+<td>WIN32</td>
+<td>在 Win32 平台为 TRUE</td>
+</tr>
+<tr>
+<td>CMAKE_C_COMPLIER</td>
+<td>C 编译器</td>
+</tr>
+<tr>
+<td>CMAKE_CXX_COMPLIER</td>
+<td>C++ 编译器</td>
+</tr>
+<tr>
+<td>CMAKE_C_FLAGS</td>
+<td>C 编译选项</td>
+</tr>
+<tr>
+<td>CMAKE_CXX_FLAGS</td>
+<td>C++ 编译选项</td>
+</tr>
+<tr>
+<td>CMAKE_BUILD_TYPE</td>
+<td>与编译选项匹配的额外编译选项. eg. DEBUG</td>
+</tr>
+<tr>
+<td>CMAKE_CXX_FLAGS_DEBUG</td>
+<td>C++ DEBUG 版本额外编译选项</td>
+</tr>
+<tr>
+<td>CMAKE_CXX_FLAGS_RELEASE</td>
+<td>C++ RELEASE 版本额外编译选项</td>
+</tr>
+<tr>
+<td>EXECUTABLE_OUTPUT_PATH</td>
+<td>可执行文件的输出目录</td>
+</tr>
+<tr>
+<td>LIBRARY_OUTPUT_PATH</td>
+<td>库文件的输出目录</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<h3 id="CMake-常用命令"><a href="#CMake-常用命令" class="headerlink" title="CMake 常用命令"></a><strong>CMake 常用命令</strong></h3><p>　　基本语法: CMake 变量使用 <code>${}</code> 方式取值, 但是在 IF 控制语句中是直接使用变量名. 环境变量使用 <code>$ENV{}</code> 方式取值, 使用 <code>SET(ENV{VAR} VALUE)</code> 赋值. 命令是大小写无关的但变量名大小写敏感, 命令的参数之间使用空格或者 <code>;</code> 分隔.</p>
+<table>
+<thead>
+<tr>
+<th>命令　　　　　　　　　　　　　　　　　　</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADD_DEFINITIONS</td>
+<td>在编译时增加宏定义</td>
+</tr>
+<tr>
+<td>ADD_CUSTOM_TARGET</td>
+<td>定义自定义的依赖, 常用于生成代码之类的工作</td>
+</tr>
+<tr>
+<td>ADD_DEPENDENCIES</td>
+<td>增加自定义依赖, 用于确保命令的执行顺序</td>
+</tr>
+<tr>
+<td>ADD_EXECUTABLE</td>
+<td>通过指定的源文件生成可执行文件</td>
+</tr>
+<tr>
+<td>ADD_LIBRARY</td>
+<td>通过指定的源文件生成库文件</td>
+</tr>
+<tr>
+<td>ADD_SUBDIRECTORY</td>
+<td>将子目录加入项目, 执行子目录中的 CMakeLists.txt</td>
+</tr>
+<tr>
+<td>AUX_SOURCE_DIRECTORY</td>
+<td>将指定目录下的所有源文件加入变量中</td>
+</tr>
+<tr>
+<td>CMAKE_MINIMUM_REQUIRED</td>
+<td>指定 CMake 依赖的最低的版本</td>
+</tr>
+<tr>
+<td>INCLUDE_DIRECTORIES</td>
+<td>增加编译时 include 的搜索目录</td>
+</tr>
+<tr>
+<td>LINK_DIRECTORIES</td>
+<td>增加链接时 lib 的搜索目录</td>
+</tr>
+<tr>
+<td>FIND_LIBRARY</td>
+<td>寻找指定库</td>
+</tr>
+<tr>
+<td>FIND_PATH</td>
+<td>寻找文件</td>
+</tr>
+<tr>
+<td>FIND_PROGRAM</td>
+<td>寻找可执行文件</td>
+</tr>
+</tbody>
+</table>
+<p><em>参考文档 <a href="https://cmake.org/cmake/help/v3.0/" target="_blank" rel="external">https://cmake.org/cmake/help/v3.0/</a></em></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/09/21/TCP 协议分析/TCP 协议分析--流模式/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          TCP 协议分析--流模式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/25/Linux/Linux 工程管理工具--CMake(一)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux 工程管理工具--CMake(一)</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-center">
+    		&copy; 2018 Astone
+    	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Unix 编程艺术--Modularity | Astone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言　　模块化的首要特质就是封装, 封装良好的模块不会过多向外部披露自身的细节, 不会直接调用其他模块的实现代码, 不会随意的共享全局数据, 模块之间应该通过双方定义的 API 来进行交互. API 作为模块之间的 choke point, 防止各自的实现细节被暴露. 同时, API 的定义确定了模块自身提供的功能和责任.　　API 在设计阶段应该试着使用纯人类的语言来描述自己的功能和责任. 看是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unix 编程艺术--Modularity">
+<meta property="og:url" content="http://astone.space/2016/10/02/Unix 编程艺术/Unix 编程艺术--Modularity/index.html">
+<meta property="og:site_name" content="Astone">
+<meta property="og:description" content="前言　　模块化的首要特质就是封装, 封装良好的模块不会过多向外部披露自身的细节, 不会直接调用其他模块的实现代码, 不会随意的共享全局数据, 模块之间应该通过双方定义的 API 来进行交互. API 作为模块之间的 choke point, 防止各自的实现细节被暴露. 同时, API 的定义确定了模块自身提供的功能和责任.　　API 在设计阶段应该试着使用纯人类的语言来描述自己的功能和责任. 看是">
+<meta property="og:updated_time" content="2018-02-13T03:17:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unix 编程艺术--Modularity">
+<meta name="twitter:description" content="前言　　模块化的首要特质就是封装, 封装良好的模块不会过多向外部披露自身的细节, 不会直接调用其他模块的实现代码, 不会随意的共享全局数据, 模块之间应该通过双方定义的 API 来进行交互. API 作为模块之间的 choke point, 防止各自的实现细节被暴露. 同时, API 的定义确定了模块自身提供的功能和责任.　　API 在设计阶段应该试着使用纯人类的语言来描述自己的功能和责任. 看是">
+  
+    <link rel="alternative" href="/atom.xml" title="Astone" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Astone</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Keep It Simple, Stupid.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+
+					
+
+					
+					<p class="header-subtitle">caliburn_marco@163.com</p>
+					
+
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Astone</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Astone</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Keep It Simple, Stupid.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Unix 编程艺术/Unix 编程艺术--Modularity" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/02/Unix 编程艺术/Unix 编程艺术--Modularity/" class="article-date">
+  	<time datetime="2016-10-02T05:28:00.000Z" itemprop="datePublished">2016-10-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Unix 编程艺术--Modularity
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unix/">unix</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Unix-编程艺术/">Unix 编程艺术</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h3><p>　　模块化的首要特质就是封装, 封装良好的模块不会过多向外部披露自身的细节, 不会直接调用其他模块的实现代码, 不会随意的共享全局数据, 模块之间应该通过双方定义的 API 来进行交互. API 作为模块之间的 choke point, 防止各自的实现细节被暴露. 同时, API 的定义确定了模块自身提供的功能和责任.<br>　　API 在设计阶段应该试着使用纯人类的语言来描述自己的功能和责任. 看是否能够提供足够的功能来满足其他模块的需求. 这种描述能够帮助你组织思路, 而且最终可以形成文档.<br><a id="more"></a></p>
+<h3 id="粒度"><a href="#粒度" class="headerlink" title="粒度"></a><strong>粒度</strong></h3><p>　　模块化的粒度是一个值得权衡的问题. 模块化粒度太粗, 导致局部代码非常复杂, 难以维护. 模块化粒度太细, 导致调用步骤冗长, 增加了使用难度, 同时理解任何一部分代码都可能需要理解全部的代码. Unix 建议单个 API 在 200 到 400 逻辑行之间是比较合理的.</p>
+<h3 id="紧凑性"><a href="#紧凑性" class="headerlink" title="紧凑性"></a><strong>紧凑性</strong></h3><p>　　人类短期记忆能够容纳的不连续信息数量大概就是七. 如果使用者需要记忆的条目大于七, 那么这个 API 可能算是严格紧凑的.<br>　　紧凑性不强的设计会有一些功能性的冗余. 当两个理解和选择不一样的程序员修改同一份代码时, 会造成理解和交流上的障碍. 但是事实上现实世界是如此的复杂, 一个紧凑的设计往往是大多数的通用情况, 不能满足很多特定的需求, 例如性能. 因此会有一些功能性的冗余. 紧凑性并不是绝对的要求, 合理的对待紧凑性, 设计中尽量考虑, 绝不随意抛弃.</p>
+<h3 id="正交性"><a href="#正交性" class="headerlink" title="正交性"></a><strong>正交性</strong></h3><p>　　正交性是有助于使复杂设计也能够紧凑的最重要的特性之一. 在纯粹的正交设计中, 任何操作都是没有副作用的, 每一个操作都只改变一件事, 而不影响其他. 例如, Unix 的 file description 都是一个和好的正交设计. 在调用 read/write 时无需考虑数据的来源是文件, 还是网络, 还是终端. 实际上重构代码的目标之一也是提高正交性.</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/10/03/x86 汇编学习/x86 汇编学习--入门 (一)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          x86 汇编学习--入门 (一)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/10/01/Unix 编程艺术/Unix 编程艺术--Generation/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Unix 编程艺术--Generation</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-center">
+    		&copy; 2018 Astone
+    	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+</html>

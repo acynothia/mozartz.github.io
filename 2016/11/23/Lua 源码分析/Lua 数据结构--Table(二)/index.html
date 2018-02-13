@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Lua 数据结构--Table(二) | Astone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="下面通过分析 ltable.c 中对 Table 的操作函数了解 Table 的具体实现。1234567891011121314151617181920/* ltable.h */Table *luaH_new (lua_State *L)&amp;#123;  GCObject *o = luaC_newobj(L, LUA_TTABLE, sizeof(Table)); /* 申请 Table 大">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua 数据结构--Table(二)">
+<meta property="og:url" content="http://astone.space/2016/11/23/Lua 源码分析/Lua 数据结构--Table(二)/index.html">
+<meta property="og:site_name" content="Astone">
+<meta property="og:description" content="下面通过分析 ltable.c 中对 Table 的操作函数了解 Table 的具体实现。1234567891011121314151617181920/* ltable.h */Table *luaH_new (lua_State *L)&amp;#123;  GCObject *o = luaC_newobj(L, LUA_TTABLE, sizeof(Table)); /* 申请 Table 大">
+<meta property="og:updated_time" content="2018-02-13T03:22:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lua 数据结构--Table(二)">
+<meta name="twitter:description" content="下面通过分析 ltable.c 中对 Table 的操作函数了解 Table 的具体实现。1234567891011121314151617181920/* ltable.h */Table *luaH_new (lua_State *L)&amp;#123;  GCObject *o = luaC_newobj(L, LUA_TTABLE, sizeof(Table)); /* 申请 Table 大">
+  
+    <link rel="alternative" href="/atom.xml" title="Astone" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Astone</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Keep It Simple, Stupid.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+
+					
+
+					
+					<p class="header-subtitle">caliburn_marco@163.com</p>
+					
+
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Astone</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Astone</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Keep It Simple, Stupid.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Lua 源码分析/Lua 数据结构--Table(二)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/23/Lua 源码分析/Lua 数据结构--Table(二)/" class="article-date">
+  	<time datetime="2016-11-23T14:14:00.000Z" itemprop="datePublished">2016-11-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Lua 数据结构--Table(二)
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Lua-源码分析/">Lua 源码分析</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　下面通过分析 ltable.c 中对 Table 的操作函数了解 Table 的具体实现。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ltable.h */</span></span><br><span class="line"></span><br><span class="line"><span class="function">Table *<span class="title">luaH_new</span> <span class="params">(lua_State *L)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  GCObject *o = luaC_newobj(L, LUA_TTABLE, <span class="keyword">sizeof</span>(Table)); <span class="comment">/* 申请 Table 大小的内存 */</span></span><br><span class="line">  Table *t = gco2t(o);        <span class="comment">/* 类型转换 */</span></span><br><span class="line">  t-&gt;metatable = <span class="literal">NULL</span>;        <span class="comment">/* 初始化元表为空 */</span></span><br><span class="line">  t-&gt;flags = cast_byte(~<span class="number">0</span>);</span><br><span class="line">  t-&gt;<span class="built_in">array</span> = <span class="literal">NULL</span>;            <span class="comment">/* 初始化简单数组为空 */</span></span><br><span class="line">  t-&gt;sizearray = <span class="number">0</span>;           <span class="comment">/* 初始化简单数组大小为 0 */</span></span><br><span class="line">  setnodevector(L, t, <span class="number">0</span>);     <span class="comment">/* 初始化关联数组, 第三个参数为 0 是, 实际指向了 dummy node */</span></span><br><span class="line">  <span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">luaH_free</span> <span class="params">(lua_State *L, Table *t)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!isdummy(t-&gt;node))      <span class="comment">/* 关联数组是否为 dummy */</span></span><br><span class="line">    luaM_freearray(L, t-&gt;node, cast(<span class="keyword">size_t</span>, sizenode(t))); <span class="comment">/* 不是 dummy, 释放内存 */</span></span><br><span class="line">  luaM_freearray(L, t-&gt;<span class="built_in">array</span>, t-&gt;sizearray);  <span class="comment">/* 释放简单数组的内存 */</span></span><br><span class="line">  luaM_free(L, t);                            <span class="comment">/* 释放 Table 自身的内存 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>　　luaC_newobj 根据类型标记创建一个可回收的对象, 并且加入全局的 gc 列表中. setnodevector 申请用于关联数组哈希表的内存, 初始化的时候第三个参数为 0, Table-&gt;node 指向了一个静态的 dummynode, 表示当前的哈希表是空的.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ltable.h */</span></span><br><span class="line"></span><br><span class="line"><span class="function">TValue *<span class="title">luaH_newkey</span> <span class="params">(lua_State *L, Table *t, <span class="keyword">const</span> TValue *key)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  Node *mp;</span><br><span class="line">  TValue aux;</span><br><span class="line">  <span class="keyword">if</span> (ttisnil(key)) <span class="comment">/* key is nil */</span></span><br><span class="line">  &#123;</span><br><span class="line">    luaG_runerror(L, <span class="string">"table index is nil"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (ttisfloat(key)) <span class="comment">/* key is float */</span></span><br><span class="line">  &#123;</span><br><span class="line">    lua_Integer k;</span><br><span class="line">    <span class="keyword">if</span> (luaV_tointeger(key, &amp;k, <span class="number">0</span>)) <span class="comment">/* index is int ? */</span> </span><br><span class="line">    &#123;</span><br><span class="line">      setivalue(&amp;aux, k);</span><br><span class="line">      key = &amp;aux;  <span class="comment">/* insert it as an integer */</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (luai_numisnan(fltvalue(key)))</span><br><span class="line">    &#123;</span><br><span class="line">      luaG_runerror(L, <span class="string">"table index is NaN"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  mp = mainposition(t, key);  <span class="comment">/* 计算 main position */</span></span><br><span class="line">  <span class="keyword">if</span> (!ttisnil(gval(mp)) || isdummy(mp))</span><br><span class="line">  &#123;</span><br><span class="line">    Node *othern;</span><br><span class="line">    Node *f = getfreepos(t);      <span class="comment">/* 在 Table-&gt;node 中找空闲的块 */</span></span><br><span class="line">    <span class="keyword">if</span> (f == <span class="literal">NULL</span>) &#123;              <span class="comment">/* 找不到空闲块 ? */</span></span><br><span class="line">      rehash(L, t, key);          <span class="comment">/* rehash 重新整理 Table */</span></span><br><span class="line">      <span class="comment">/* whatever called 'newkey' takes care of TM cache */</span></span><br><span class="line">      <span class="keyword">return</span> luaH_set(L, t, key); <span class="comment">/* 不是很明白这里为何需要重新调用 luaH_set */</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    lua_assert(!isdummy(f));</span><br><span class="line">    </span><br><span class="line">    othern = mainposition(t, gkey(mp)); <span class="comment">/* 计算 main position 位置的值的 main position */</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (othern != mp) <span class="comment">/* main position 的值是否是由冲突分配的 */</span></span><br><span class="line">    &#123; </span><br><span class="line">      <span class="comment">/* main position 当前的值, 是由于冲突分配的, 重新分配它的位置 */</span></span><br><span class="line">      <span class="keyword">while</span> (othern + gnext(othern) != mp)    <span class="comment">/* find previous */</span></span><br><span class="line">        othern += gnext(othern);</span><br><span class="line">      gnext(othern) = cast_int(f - othern);  <span class="comment">/* rechain to point to 'f' */</span></span><br><span class="line">      *f = *mp;  <span class="comment">/* copy colliding node into free pos. (mp-&gt;next also goes) */</span></span><br><span class="line">      <span class="keyword">if</span> (gnext(mp) != <span class="number">0</span>) &#123;</span><br><span class="line">        gnext(f) += cast_int(mp - f);   <span class="comment">/* correct 'next' */</span></span><br><span class="line">        gnext(mp) = <span class="number">0</span>;                  <span class="comment">/* now 'mp' is free */</span></span><br><span class="line">      &#125;</span><br><span class="line">      setnilvalue(gval(mp));  <span class="comment">/* 释放 mp 用于 setnodekey */</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">/* main position 当前是冲突的头, 将新 key 分配到 f 并且将 f 插入到冲突链中 */</span></span><br><span class="line">      <span class="keyword">if</span> (gnext(mp) != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">/* main position 有冲突链, f 链接冲突链. 注意: TKey-&gt;next 是当前点的 offset */</span></span><br><span class="line">        gnext(f) = cast_int((mp + gnext(mp)) - f);  <span class="comment">/* chain new position */</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">        lua_assert(gnext(f) == <span class="number">0</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      gnext(mp) = cast_int(f - mp);</span><br><span class="line">      mp = f;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  setnodekey(L, &amp;mp-&gt;i_key, key); <span class="comment">/* 更新 Table 中 key 的值 */</span></span><br><span class="line">  luaC_barrierback(L, t, key);    </span><br><span class="line">  lua_assert(ttisnil(gval(mp)));</span><br><span class="line">  <span class="keyword">return</span> gval(mp);  <span class="comment">/* 返回 TValue* 指针, 可以用于对 key 的 value 进行赋值 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>　　lua 的哈希表以闭散列实现。每个可能的键值，在哈希表中都有一个主要位置，称作 main position 。创建一个新键时，检查 main position，若无人使用，则可以直接设置为这个新键。若之前有其它键占据了，则检查占据此位置的键的主位置是不是这里。若是，则将当前键分配在 lastfree，同时，当前键的 next 指向 main position 的 next，将 main position 键的 next 指向当前键。若否，则把 main position 挪到 lastfree (要更新它的 previous)，让当前键分配在 main position。如果 getfreepos 找不到位置，则会进行 rehash 操作。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* ltable.h */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">rehash</span> <span class="params">(lua_State *L, Table *t, <span class="keyword">const</span> TValue *ek)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> asize;   <span class="comment">/* optimal size for array part */</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> na;      <span class="comment">/* number of keys in the array part */</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> nums[MAXABITS + <span class="number">1</span>];</span><br><span class="line">  <span class="keyword">int</span> i;</span><br><span class="line">  <span class="keyword">int</span> totaluse;</span><br><span class="line">  <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= MAXABITS; i++) nums[i] = <span class="number">0</span>;  <span class="comment">/* reset counts */</span></span><br><span class="line">  na = numusearray(t, nums);            <span class="comment">/* count each elements in range (2^(bit - 1), 2^bit] fill nums*/</span></span><br><span class="line">  totaluse = na;                        <span class="comment">/* all those keys are integer keys */</span></span><br><span class="line">  totaluse += numusehash(t, nums, &amp;na); <span class="comment">/* count keys in hash part */</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* count extra key */</span></span><br><span class="line">  na += countint(ek, nums);</span><br><span class="line">  totaluse++;</span><br><span class="line"></span><br><span class="line">  asize = computesizes(nums, &amp;na);          <span class="comment">/* compute new size for array part */</span></span><br><span class="line">  luaH_resize(L, t, asize, totaluse - na);  <span class="comment">/* resize the table to new computed sizes */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>　　数组部分的数据只有在进行 rehash 的时候才会计算分配，原则是数组的利用率需要大于 50%。rehash 之后需要重新计算原来的 key，并且重新插入 value。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/25/Lua 源码分析/Lua 数据结构--Closure/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Lua 数据结构--Closure
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/11/23/Lua 源码分析/Lua 数据结构--Table(一)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Lua 数据结构--Table(一)</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-center">
+    		&copy; 2018 Astone
+    	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>x86 汇编学习--CPU 架构术语 | Astone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="x86 架构首度出现在 1978 年推出的 Intel 8086 处理器。Intel 之后又推出了包括 80186、80286、80386 以及 80486。在设计上，这些后续的处理器使用的指令集都是在 8086 的基础上添加新支持的指令进行改进的，因此可以说都是向下兼容的(backward compatibie)，即能在 8086 上运行的程序在 80486 上也一定能运行。由于都是以 86">
+<meta property="og:type" content="article">
+<meta property="og:title" content="x86 汇编学习--CPU 架构术语">
+<meta property="og:url" content="http://astone.space/2016/10/05/x86 汇编学习/x86 汇编学习--CPU 架构术语/index.html">
+<meta property="og:site_name" content="Astone">
+<meta property="og:description" content="x86 架构首度出现在 1978 年推出的 Intel 8086 处理器。Intel 之后又推出了包括 80186、80286、80386 以及 80486。在设计上，这些后续的处理器使用的指令集都是在 8086 的基础上添加新支持的指令进行改进的，因此可以说都是向下兼容的(backward compatibie)，即能在 8086 上运行的程序在 80486 上也一定能运行。由于都是以 86">
+<meta property="og:updated_time" content="2018-02-13T03:19:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="x86 汇编学习--CPU 架构术语">
+<meta name="twitter:description" content="x86 架构首度出现在 1978 年推出的 Intel 8086 处理器。Intel 之后又推出了包括 80186、80286、80386 以及 80486。在设计上，这些后续的处理器使用的指令集都是在 8086 的基础上添加新支持的指令进行改进的，因此可以说都是向下兼容的(backward compatibie)，即能在 8086 上运行的程序在 80486 上也一定能运行。由于都是以 86">
+  
+    <link rel="alternative" href="/atom.xml" title="Astone" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Astone</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Keep It Simple, Stupid.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+
+					
+
+					
+					<p class="header-subtitle">caliburn_marco@163.com</p>
+					
+
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Astone</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Astone</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Keep It Simple, Stupid.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-x86 汇编学习/x86 汇编学习--CPU 架构术语" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/05/x86 汇编学习/x86 汇编学习--CPU 架构术语/" class="article-date">
+  	<time datetime="2016-10-05T13:31:00.000Z" itemprop="datePublished">2016-10-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      x86 汇编学习--CPU 架构术语
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/asm/">asm</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/x86-汇编学习/">x86 汇编学习</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　x86 架构首度出现在 1978 年推出的 Intel 8086 处理器。Intel 之后又推出了包括 80186、80286、80386 以及 80486。在设计上，这些后续的处理器使用的指令集都是在 8086 的基础上添加新支持的指令进行改进的，因此可以说都是向下兼容的(backward compatibie)，即能在 8086 上运行的程序在 80486 上也一定能运行。由于都是以 86 结尾，所以把这一系列的指令集称之为 x86 指令集（架构）。准确的来讲，x86 并不是指的某一个（具体 CPU 使用的）具体的指令集，而是在 8086（指令集）基础上发展而来 的所有指令集的泛称，即它是一个指令集系列的统称。<br><a id="more"></a></p>
+<p>　　从 1985 年 80386 开始，intel 通过对 x86 架构进行 32 位的扩展，实现了 32 位 CPU (之前的都是 16 位)。Intel 把支持 32 位的 x86 指令集架构命名为 IA-32 (Intel Architecture 32bit)。实际上由于 32 位 x86 处理器的统治性地位，术语“x86”几乎等于 IA-32，即 32 位的 x86 或 x86-32，例如 Windows 和 Linux 发行版的 32 位命名都是 x86（而不是 x86-32 或 IA-32）。后来的“x86-64”名称也继续强化了这种约定方式。这里还是要强调 x86 是一系列架构的统称，支持 16 位、32 位和 64 位的指令集都有。</p>
+<p>　　1999 年，AMD 宣布了 x86-64 架构。其实现方式与之前的 80386 思路一致，继续对 IA-32 扩展，增加 64 位通用寄存器、证书预算单元和逻辑操作、支持64位虚地址；并且向下兼容 IA-32。2003 年，第一款 x86-64 处理器发布，AMD Operon。同时 AMD 也将 x86-64 正式命名为 AMD64。这下 Intel 彻底懵了，以前都是 AMD 小弟追随着 Intel 大哥的脚步，如今 AMD 率先推出了 64 位民用桌面级 CPU。</p>
+<p>　　实际上 Intel 并不是不重视 64 位 CPU。1994 年 HP 就和 Intel 合作研发一款与 x86 架构完全没关系的全新的 IA-64 架构，IA-64 天生就是 64 位，基于显式并行指令运算（EPIC）。显然全新的 IA-64 不兼容 x86-64 更别说 IA-32。而开发者对于 Intel 的新技术并不感冒，因为兼容性问题都投入了 AMD 的怀抱。</p>
+<p>　　由于 AMD 在 64 位技术中的领先地位（特指桌面级 64 位CPU），Intel 2005 年不得不宣布将完全兼容 AMD64。所以现在装的 64 位版本操作系统没有说是面向 Intel 还是 AMD 的。不过在称谓上，大多数厂商还是使用 x86-64（x86_64，或者x64）来称呼此架构，从而保持中立。</p>
+<p>　　在 Linux 软件的 RPM 包中经常可以看到 i386、i686 这样的标签，这是由于 RPM 包都是已经编译好的二进制文件，所以在 CPU 架构更新了之后虽然 x86 的向下兼容性，在拥有新性能的 CPU 上运行老的二进制文件是没有问题的，但并不能完全发挥 CPU 的性能。这就是为什么大家喜欢使用源码安装，而不是直接使用 RPM。而 80386 和 80686 是两个非常重要的里程碑。在 80386 时 Intel 将 CPU 扩展到 32 位。在 80686 时引入了乱序执行技术。因此，通常的软件都会提供这两个版本的 RPM，不过在现在（2016年），连奔腾系列的 CPU 都基本上绝迹了。如果软件提供了 i686 版本可以放心用就行了。</p>
+<p><em>参考资料 <a href="https://en.wikipedia.org/wiki/X86" target="_blank" rel="external">https://en.wikipedia.org/wiki/X86</a></em></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/15/Lua 源码分析/Lua 源码分析--工具/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Lua 源码分析--工具
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/10/05/x86 汇编学习/x86 汇编学习--CPU 寄存器/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">x86 汇编学习--CPU 寄存器</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-center">
+    		&copy; 2018 Astone
+    	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+</html>

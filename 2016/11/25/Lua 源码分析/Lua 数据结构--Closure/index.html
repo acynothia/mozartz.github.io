@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Lua 数据结构--Closure | Astone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Closure　　在 lua 中函数是作为第一类值存在的，即它和表、字符串、数值一样可以被变量引用。函数有三种类型 lua 函数 (LUA_TLCL)、轻量级 C 函数 (LUA_TLCF)、C 函数 (LUA_TCCL)。其中 LUA_TLCL 和 LUA_TCCL 属于 GCUnion–需要被回收的类型，被称为 Closure。当 LUA_TCCL 不包含 upvalue 时，直接用 C 函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua 数据结构--Closure">
+<meta property="og:url" content="http://astone.space/2016/11/25/Lua 源码分析/Lua 数据结构--Closure/index.html">
+<meta property="og:site_name" content="Astone">
+<meta property="og:description" content="Closure　　在 lua 中函数是作为第一类值存在的，即它和表、字符串、数值一样可以被变量引用。函数有三种类型 lua 函数 (LUA_TLCL)、轻量级 C 函数 (LUA_TLCF)、C 函数 (LUA_TCCL)。其中 LUA_TLCL 和 LUA_TCCL 属于 GCUnion–需要被回收的类型，被称为 Closure。当 LUA_TCCL 不包含 upvalue 时，直接用 C 函数">
+<meta property="og:updated_time" content="2018-02-13T03:23:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lua 数据结构--Closure">
+<meta name="twitter:description" content="Closure　　在 lua 中函数是作为第一类值存在的，即它和表、字符串、数值一样可以被变量引用。函数有三种类型 lua 函数 (LUA_TLCL)、轻量级 C 函数 (LUA_TLCF)、C 函数 (LUA_TCCL)。其中 LUA_TLCL 和 LUA_TCCL 属于 GCUnion–需要被回收的类型，被称为 Closure。当 LUA_TCCL 不包含 upvalue 时，直接用 C 函数">
+  
+    <link rel="alternative" href="/atom.xml" title="Astone" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Astone</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Keep It Simple, Stupid.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+
+					
+
+					
+					<p class="header-subtitle">caliburn_marco@163.com</p>
+					
+
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Astone</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Astone</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Keep It Simple, Stupid.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-Lua 源码分析/Lua 数据结构--Closure" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/25/Lua 源码分析/Lua 数据结构--Closure/" class="article-date">
+  	<time datetime="2016-11-25T02:20:00.000Z" itemprop="datePublished">2016-11-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Lua 数据结构--Closure
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Lua-源码分析/">Lua 源码分析</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Closure"><a href="#Closure" class="headerlink" title="Closure"></a><strong>Closure</strong></h3><p>　　在 lua 中函数是作为第一类值存在的，即它和表、字符串、数值一样可以被变量引用。函数有三种类型 lua 函数 (LUA_TLCL)、轻量级 C 函数 (LUA_TLCF)、C 函数 (LUA_TCCL)。其中 LUA_TLCL 和 LUA_TCCL 属于 GCUnion–需要被回收的类型，被称为 <a href="https://en.wikipedia.org/wiki/Closure_%28computer_programming%29" target="_blank" rel="external">Closure</a>。当 LUA_TCCL 不包含 upvalue 时，直接用 C 函数指针即可，不必构造 Closure 对象, 也就是 LUA_TLCF。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* lua.h */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Type for C functions registered with Lua */</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*lua_CFunction)</span> <span class="params">(lua_State *L)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* lobject.h */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Variant tags for functions */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TLCL  (LUA_TFUNCTION | (0 &lt;&lt; 4))  <span class="comment">/* Lua closure */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TLCF  (LUA_TFUNCTION | (1 &lt;&lt; 4))  <span class="comment">/* light C function */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TCCL  (LUA_TFUNCTION | (2 &lt;&lt; 4))  <span class="comment">/* C closure */</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Closures */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> CClosure &#123;</span><br><span class="line">  GCObject *next;</span><br><span class="line">  lu_byte tt;</span><br><span class="line">  lu_byte marked;</span><br><span class="line">  lu_byte nupvalues;  <span class="comment">/* nums of upvalue */</span></span><br><span class="line">  GCObject *gclist;</span><br><span class="line">  lua_CFunction f;</span><br><span class="line">  TValue upvalue[<span class="number">1</span>];  <span class="comment">/* list of upvalues */</span></span><br><span class="line">&#125; CClosure;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> LClosure &#123;</span><br><span class="line">  GCObject *next;</span><br><span class="line">  lu_byte tt;</span><br><span class="line">  lu_byte marked;</span><br><span class="line">  lu_byte nupvalues;  <span class="comment">/* nums of upvalue */</span></span><br><span class="line">  GCObject *gclist;</span><br><span class="line">  <span class="keyword">struct</span> Proto *p;</span><br><span class="line">  UpVal *upvals[<span class="number">1</span>];   <span class="comment">/* list of upvalues */</span></span><br><span class="line">&#125; LClosure;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> Closure &#123;</span><br><span class="line">  CClosure c;</span><br><span class="line">  LClosure l;</span><br><span class="line">&#125; Closure;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>　　lua 的闭包分成两类：CClosure 是 C 的函数闭包。LClosure 是 Lua 的函数闭包。</p>
+<h3 id="LClosure"><a href="#LClosure" class="headerlink" title="LClosure"></a><strong>LClosure</strong></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* lobject.h */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Function Prototypes */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> Proto</span><br><span class="line">&#123;</span><br><span class="line">  GCObject *next;</span><br><span class="line">  lu_byte tt;</span><br><span class="line">  lu_byte marked;</span><br><span class="line">  lu_byte numparams;    <span class="comment">/* number of fixed parameters */</span></span><br><span class="line">  lu_byte is_vararg;    <span class="comment">/* 2: declared vararg; 1: uses vararg */</span></span><br><span class="line">  lu_byte maxstacksize; <span class="comment">/* number of registers needed by this function */</span></span><br><span class="line">  <span class="keyword">int</span> sizeupvalues;     <span class="comment">/* size of 'upvalues' */</span></span><br><span class="line">  <span class="keyword">int</span> sizek;            <span class="comment">/* size of 'k' */</span></span><br><span class="line">  <span class="keyword">int</span> sizecode;</span><br><span class="line">  <span class="keyword">int</span> sizelineinfo;</span><br><span class="line">  <span class="keyword">int</span> sizep;            <span class="comment">/* size of 'p' */</span></span><br><span class="line">  <span class="keyword">int</span> sizelocvars;</span><br><span class="line">  <span class="keyword">int</span> linedefined;      <span class="comment">/* debug information  */</span></span><br><span class="line">  <span class="keyword">int</span> lastlinedefined;  <span class="comment">/* debug information  */</span></span><br><span class="line">  TValue *k;            <span class="comment">/* constants used by the function */</span></span><br><span class="line">  Instruction *code;    <span class="comment">/* opcodes */</span></span><br><span class="line">  <span class="keyword">struct</span> Proto **p;     <span class="comment">/* functions defined inside the function */</span></span><br><span class="line">  <span class="keyword">int</span> *lineinfo;        <span class="comment">/* map from opcodes to source lines (debug information) */</span></span><br><span class="line">  LocVar *locvars;      <span class="comment">/* information about local variables (debug information) */</span></span><br><span class="line">  Upvaldesc *upvalues;  <span class="comment">/* upvalue information */</span></span><br><span class="line">  <span class="keyword">struct</span> LClosure *cache;  <span class="comment">/* last-created closure with this prototype */</span></span><br><span class="line">  TString  *source;     <span class="comment">/* used for debug information */</span></span><br><span class="line">  GCObject *gclist;</span><br><span class="line">&#125; Proto;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* lfunc.h */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Upvalues for Lua closures */</span></span><br><span class="line"><span class="keyword">struct</span> UpVal</span><br><span class="line">&#123;</span><br><span class="line">  TValue *v;        <span class="comment">/* points to stack or to its own value */</span></span><br><span class="line">  lu_mem refcount;  <span class="comment">/* reference counter */</span></span><br><span class="line">  <span class="keyword">union</span> &#123;</span><br><span class="line">    <span class="keyword">struct</span> &#123;        <span class="comment">/* (when open) */</span></span><br><span class="line">      UpVal *next;  <span class="comment">/* linked list */</span></span><br><span class="line">      <span class="keyword">int</span> touched;  <span class="comment">/* mark to avoid cycles with dead threads */</span></span><br><span class="line">    &#125; open;</span><br><span class="line">    TValue value;   <span class="comment">/* (when closed) the value */</span></span><br><span class="line">  &#125; u;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>　　LClosure 由 Proto 和 UpVal 组成。Proto 描述了 lua 函数的函数原型，记录了函数原型的字节码、函数引用的常量表、调试信息、参数、栈大小等信息。UpVal 保存了对 upvalue 的引用。它直接用一个 TValue 指针引用一个 upvalue 值变量。当被引用的变量还在数据栈上时，这个指针直接指向栈上的 TValue，那么这个 upvalue 被称为开放的。由于 lua 的数据栈的大小可扩展，当数据栈内存延展时 (realloc)，其内存地址会发生变化，这时需要将 upvalue 拷贝到 UpVal.u.value 中保存。</p>
+<h3 id="CClosure"><a href="#CClosure" class="headerlink" title="CClosure"></a><strong>CClosure</strong></h3><p>　　CClosure 由 lua_CFunction 和 TValue 组成。C 函数可以用闭包的方式嵌入 lua，与 LClosure 相比 CClosure 天生就是关闭的。因此，直接使用 TValue 来保存 upvalue。而 lua 与 C 交互的函数原型统一使用 lua_CFunction。当某个函数没有 upvalue 时，则不需要创建闭包直接使用 lua_CFunction。也称为 light C function。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/27/Python/Python 小工具--球球大作战领棒棒糖/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Python 小工具--球球大作战领棒棒糖
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/11/23/Lua 源码分析/Lua 数据结构--Table(二)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Lua 数据结构--Table(二)</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-center">
+    		&copy; 2018 Astone
+    	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+</html>

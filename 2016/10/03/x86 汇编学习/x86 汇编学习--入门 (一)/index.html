@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>x86 汇编学习--入门 (一) | Astone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近开始学习汇编, 参考书籍: Professional Assembly Language.
+123456789101112131415161718192021222324.section .datastring:  .ascii &amp;quot;This cpu vendor ID is &amp;apos;xxxxxxxxxxxx&amp;apos;\n&amp;quot;.section .bss.section">
+<meta property="og:type" content="article">
+<meta property="og:title" content="x86 汇编学习--入门 (一)">
+<meta property="og:url" content="http://astone.space/2016/10/03/x86 汇编学习/x86 汇编学习--入门 (一)/index.html">
+<meta property="og:site_name" content="Astone">
+<meta property="og:description" content="最近开始学习汇编, 参考书籍: Professional Assembly Language.
+123456789101112131415161718192021222324.section .datastring:  .ascii &amp;quot;This cpu vendor ID is &amp;apos;xxxxxxxxxxxx&amp;apos;\n&amp;quot;.section .bss.section">
+<meta property="og:updated_time" content="2018-02-13T03:17:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="x86 汇编学习--入门 (一)">
+<meta name="twitter:description" content="最近开始学习汇编, 参考书籍: Professional Assembly Language.
+123456789101112131415161718192021222324.section .datastring:  .ascii &amp;quot;This cpu vendor ID is &amp;apos;xxxxxxxxxxxx&amp;apos;\n&amp;quot;.section .bss.section">
+  
+    <link rel="alternative" href="/atom.xml" title="Astone" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Astone</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Keep It Simple, Stupid.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+
+					
+
+					
+					<p class="header-subtitle">caliburn_marco@163.com</p>
+					
+
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Astone</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Astone</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Keep It Simple, Stupid.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-x86 汇编学习/x86 汇编学习--入门 (一)" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/03/x86 汇编学习/x86 汇编学习--入门 (一)/" class="article-date">
+  	<time datetime="2016-10-03T03:28:00.000Z" itemprop="datePublished">2016-10-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      x86 汇编学习--入门 (一)
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/asm/">asm</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/x86-汇编学习/">x86 汇编学习</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　最近开始学习汇编, 参考书籍: Professional Assembly Language.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">.section .data</span><br><span class="line">string:  .ascii &quot;This cpu vendor ID is &apos;xxxxxxxxxxxx&apos;\n&quot;</span><br><span class="line"></span><br><span class="line">.section .bss</span><br><span class="line">.section .text</span><br><span class="line">.globl main</span><br><span class="line"></span><br><span class="line">main:</span><br><span class="line">movl  $0x00, %eax       # 将 eax 置 0, 用于 cpuid 调用的参数</span><br><span class="line">cpuid                   # 调用 cpuid 指令, 获取 cpu 信息, 并保存在 ebx, edx, ecx</span><br><span class="line">movl  $string, %edi     # 将标签 string 指示的内存地址赋给 edi</span><br><span class="line">movl  %ebx, 23(%edi)    # 将 ebx 的值写入 edi 偏移 23 字节的内存</span><br><span class="line">movl  %edx, 27(%edi)    # 将 edx 的值写入 edi 偏移 27 字节的内存</span><br><span class="line">movl  %ecx, 31(%edi)    # 将 ecx 的值写入 edi 偏移 31 字节的内存</span><br><span class="line"></span><br><span class="line">movl  $0x04, %eax       # 将 eax 赋值为 0x04 (代表 write 系统调用)</span><br><span class="line">movl  $0x01, %ebx       # 将 ebx 赋值为 0x01 (代表 write 参数, fd)</span><br><span class="line">movl  $string, %ecx     # 将标签 string 指示的内存地址赋给 ecx (代表 write 参数, buf)</span><br><span class="line">movl  $0x25, %edx       # 将 edx 赋值为 0x25(37) (代表 write 参数, count)</span><br><span class="line">int   $0x80             # 发送软中断, 切换到内核态, 根据各寄存器的值进行系统调用</span><br><span class="line"></span><br><span class="line">movl  $0x01, %eax       # 将 eax 赋值为 0x01 (代表 exit 系统调用)</span><br><span class="line">movl  $0x00, %ebx       # 将 ebx 赋值为 0x00 (代表 exit 参数, status)</span><br><span class="line">int   $0x80             # 发送软中断, 切换到内核态, 根据各寄存器的值进行系统调用</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>gcc 编译: <code>gcc -o main main.s</code></p>
+<p>所有的系统调用功能号都在文件 /usr/include/asm/unistd.h 中, 根据系统的版本 include unistd_32.h 或 unistd_64.h.</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/10/03/x86 汇编学习/x86 汇编学习--入门 (二)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          x86 汇编学习--入门 (二)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/10/02/Unix 编程艺术/Unix 编程艺术--Modularity/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Unix 编程艺术--Modularity</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-center">
+    		&copy; 2018 Astone
+    	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+</html>

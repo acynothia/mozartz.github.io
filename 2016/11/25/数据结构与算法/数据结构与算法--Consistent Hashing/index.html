@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>数据结构与算法--Consistent Hashing | Astone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一致性哈希算法 (Consistent Hashing) 最早在论文 Consistent Hashing and Random Trees: Distributed Caching Protocols for Relieving Hot Spots on the World Wide Web 中被提出。简单来说，将整个哈希算法的值域当成圆环, 将节点和键哈希之后作为圆环上的点, 按照顺时针的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法--Consistent Hashing">
+<meta property="og:url" content="http://astone.space/2016/11/25/数据结构与算法/数据结构与算法--Consistent Hashing/index.html">
+<meta property="og:site_name" content="Astone">
+<meta property="og:description" content="一致性哈希算法 (Consistent Hashing) 最早在论文 Consistent Hashing and Random Trees: Distributed Caching Protocols for Relieving Hot Spots on the World Wide Web 中被提出。简单来说，将整个哈希算法的值域当成圆环, 将节点和键哈希之后作为圆环上的点, 按照顺时针的">
+<meta property="og:image" content="http://astone.space/source_img/hash_ring_1.png">
+<meta property="og:image" content="http://astone.space/source_img/hash_ring_2.png">
+<meta property="og:updated_time" content="2018-02-12T13:37:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构与算法--Consistent Hashing">
+<meta name="twitter:description" content="一致性哈希算法 (Consistent Hashing) 最早在论文 Consistent Hashing and Random Trees: Distributed Caching Protocols for Relieving Hot Spots on the World Wide Web 中被提出。简单来说，将整个哈希算法的值域当成圆环, 将节点和键哈希之后作为圆环上的点, 按照顺时针的">
+<meta name="twitter:image" content="http://astone.space/source_img/hash_ring_1.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Astone" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Astone</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Keep It Simple, Stupid.</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+
+					
+
+					
+					<p class="header-subtitle">caliburn_marco@163.com</p>
+					
+
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="#" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Astone</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/avatar.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Astone</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Keep It Simple, Stupid.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-数据结构与算法/数据结构与算法--Consistent Hashing" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/25/数据结构与算法/数据结构与算法--Consistent Hashing/" class="article-date">
+  	<time datetime="2016-11-25T12:28:00.000Z" itemprop="datePublished">2016-11-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构与算法--Consistent Hashing
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/数据结构与算法/">数据结构与算法</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>　　一致性哈希算法 (Consistent Hashing) 最早在论文 Consistent Hashing and Random Trees: Distributed Caching Protocols for Relieving Hot Spots on the World Wide Web 中被提出。简单来说，将整个哈希算法的值域当成圆环, 将节点和键哈希之后作为圆环上的点, 按照顺时针的关系将键和节点对应. 结构如下图:</p>
+<center><img src="/source_img/hash_ring_1.png" alt="hash_ring_1"></center>
+
+<p>　　假设, 当节点 N4 失效时. 由于节点的哈希值不会改变, 键和节点的对应关系按照顺时针对应. 那么当 N4 失效时, 结构如下图:</p>
+<p><center><img src="/source_img/hash_ring_2.png" alt="hash_ring_2"></center><br><a id="more"></a><br>　　通过结构图可以看出: 除了 Key4 之外, 其他节点都保持了原来的对应关系. 在分布式缓存服务中, 节点记录了缓存服务器的地址信息. 通过对键值哈希得到存放对应信息的缓存服务器. 当某一台服务器故障时, 只有落在 N3 和 N4 之间的键值会受到影响, 保证了相对稳定性. 另外, 在分布式存储服务中, 如果需要增加或减少节点, 只需要迁移部分数据, 极大的减少了维护成本.<br>　　在节点数较少的情况下, 很难保证节点哈希的均匀分布, 这时可以考虑引入虚拟节点的概念. 在哈希环上保存虚拟节点, 然后通过虚拟节点索引到真正的节点, 这在分布式缓存中是非常合适的. 但是在存储服务中, 由于数据需要进行迁移, 虚拟节点的引入会增加迁移成本.<br>　　实现代码如下:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> KeyT, <span class="keyword">class</span> NodeT, <span class="keyword">class</span> KeyHashT, <span class="keyword">class</span> NodeHashT&gt;</span><br><span class="line"><span class="keyword">class</span> CHashRing</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">size_t</span>, NodeT&gt; hash_ring_type;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">size_t</span>, NodeT&gt;::iterator iterator;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">size_t</span>, NodeT&gt;::const_iterator const_iterator;</span><br><span class="line"></span><br><span class="line">    CHashRing(<span class="keyword">const</span> KeyHashT&amp; stKeyHash, <span class="keyword">const</span> NodeHashT&amp; stNodeHash, <span class="keyword">unsigned</span> <span class="keyword">int</span> uiReplicas = <span class="number">1</span>)</span><br><span class="line">        : m_stKeyHash(stKeyHash), m_stNodeHash(stNodeHash), m_uiReplicas(uiReplicas)</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">AddNode</span><span class="params">(<span class="keyword">const</span> NodeT&amp; stNode)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">size_t</span> hash;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m_uiReplicas; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            hash = m_stNodeHash(stNode, i);</span><br><span class="line">            m_stHashRing[hash] = stNode;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DelNode</span><span class="params">(<span class="keyword">const</span> NodeT&amp; stNode)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">size_t</span> hash;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m_uiReplicas; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            hash = m_stNodeHash(stNode, i);</span><br><span class="line">            m_stHashRing.erase(hash);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">const</span> NodeT* <span class="title">GetNode</span><span class="params">(<span class="keyword">const</span> KeyT&amp; stKey)</span></span><br><span class="line">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (m_stHashRing.empty()) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">size_t</span> hash = m_stKeyHash(stKey);</span><br><span class="line">        <span class="keyword">auto</span> stIter = m_stHashRing.lower_bound(hash);</span><br><span class="line">        <span class="keyword">if</span> (stIter == m_stHashRing.end())</span><br><span class="line">            stIter = m_stHashRing.begin();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> &amp;(stIter-&gt;second);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">iterator <span class="title">Begin</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> m_stHashRing.begin(); &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">iterator <span class="title">End</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> m_stHashRing.end(); &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    hash_ring_type      m_stHashRing;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    KeyHashT            m_stKeyHash;</span><br><span class="line">    NodeHashT           m_stNodeHash;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span>  m_uiReplicas;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><em>完整代码 <a href="http://git.oschina.net/astone123/cpp" target="_blank" rel="external">http://git.oschina.net/astone123/cpp</a></em></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/25/数据结构与算法/数据结构与算法--Skiplist/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          数据结构与算法--Skiplist
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/11/25/数据结构与算法/数据结构与算法--Circular Queue/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据结构与算法--Circular Queue</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-center">
+    		&copy; 2018 Astone
+    	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/require.js/2.1.22/require.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+</html>
