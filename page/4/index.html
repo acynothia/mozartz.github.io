@@ -110,7 +110,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
+						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
 					</div>
 				</section>
 				
@@ -171,6 +171,71 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Lua 源码分析/Lua 数据结构--TValue" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/18/Lua 源码分析/Lua 数据结构--TValue/" class="article-date">
+  	<time datetime="2016-11-18T13:32:00.000Z" itemprop="datePublished">2016-11-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/18/Lua 源码分析/Lua 数据结构--TValue/">Lua 数据结构--TValue</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="TValue"><a href="#TValue" class="headerlink" title="TValue"></a><strong>TValue</strong></h3><p>　　TValue 是实现 Lua 弱数据类型的主要数据结构。所有关于 lua 数据值的操作都会涉及到 TValue。因此 TValue 贯穿了整个 Lua 的实现。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* lua.h */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TNONE         (-1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TNIL            0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TBOOLEAN        1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TLIGHTUSERDATA  2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TNUMBER         3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TSTRING         4</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TTABLE          5</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TFUNCTION       6</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TUSERDATA       7</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TTHREAD         8</span></span><br></pre></td></tr></table></figure></p>
+<p>　　在 lua.h 中的宏定义列出了 lua 语法中所涉及的所有基础类型。但实际上 lua 在内部实现上会对这些基础数据类型进行更细粒度的划分，例如：LUA_TSTRING 在 lua 的实现层面会分成 LUA_TSHRSTR 和 LUA_TLNGSTR 。<br>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Lua-源码分析/">Lua 源码分析</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/11/18/Lua 源码分析/Lua 数据结构--TValue/#more">more</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Lua 源码分析/Lua 源码分析--执行流程" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -440,99 +505,6 @@
 
 
   
-    <article id="post-x86 汇编学习/x86 汇编学习--Intel 与 AT&amp;T 汇编" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/04/x86 汇编学习/x86 汇编学习--Intel 与 AT&T 汇编/" class="article-date">
-  	<time datetime="2016-10-04T02:11:00.000Z" itemprop="datePublished">2016-10-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/04/x86 汇编学习/x86 汇编学习--Intel 与 AT&T 汇编/">x86 汇编学习--Intel 与 AT&amp;T 汇编</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="操作数前缀"><a href="#操作数前缀" class="headerlink" title="操作数前缀"></a><strong>操作数前缀</strong></h3><p>　　在 Intel 语法中，寄存器和立即数都没有前缀，十六进制和二进制的立即数用 h 和 b 作为后缀，但是在内存单元操作数前面需要加上 byte ptr、word ptr 和 dword ptr 来指示指针的单位偏移量。在 AT&amp;T 中，寄存器冠以 %, 立即数冠以 $, 十六进制立即数用 0x 作为前缀。</p>
-<div style="width:80%; margin:0px left;">
-
-<table>
-<thead>
-<tr>
-<th>Intel 语法　　　　　　　　</th>
-<th>AT&amp;T 语法　　　　　　　　</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>mov eax, 8</td>
-<td>movl $8,    %eax</td>
-</tr>
-<tr>
-<td>mov ebx, FFh</td>
-<td>movl $0xFF, %eax</td>
-</tr>
-<tr>
-<td>int 80h</td>
-<td>int  $0x80</td>
-</tr>
-<tr>
-<td>mov eax, dword ptr [ebx]</td>
-<td>movl (%ebx), %eax　　　</td>
-</tr>
-</tbody>
-</table>
-<p></div><!--cc-->
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/asm/">asm</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/x86-汇编学习/">x86 汇编学习</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/10/04/x86 汇编学习/x86 汇编学习--Intel 与 AT&T 汇编/#more">more</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/">Next</a>
@@ -543,7 +515,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-center">
-    		&copy; 2018 Astone
+    		&copy; 2019 Astone
     	</div>
     </div>
   </div>

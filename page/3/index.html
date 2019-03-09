@@ -110,7 +110,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
+						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
 					</div>
 				</section>
 				
@@ -171,6 +171,70 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Lua 源码分析/Lua 数据结构--Closure" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/11/25/Lua 源码分析/Lua 数据结构--Closure/" class="article-date">
+  	<time datetime="2016-11-25T02:20:00.000Z" itemprop="datePublished">2016-11-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/25/Lua 源码分析/Lua 数据结构--Closure/">Lua 数据结构--Closure</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Closure"><a href="#Closure" class="headerlink" title="Closure"></a><strong>Closure</strong></h3><p>　　在 lua 中函数是作为第一类值存在的，即它和表、字符串、数值一样可以被变量引用。函数有三种类型 lua 函数 (LUA_TLCL)、轻量级 C 函数 (LUA_TLCF)、C 函数 (LUA_TCCL)。其中 LUA_TLCL 和 LUA_TCCL 属于 GCUnion–需要被回收的类型，被称为 <a href="https://en.wikipedia.org/wiki/Closure_%28computer_programming%29">Closure</a>。当 LUA_TCCL 不包含 upvalue 时，直接用 C 函数指针即可，不必构造 Closure 对象, 也就是 LUA_TLCF。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* lua.h */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Type for C functions registered with Lua */</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*lua_CFunction)</span> <span class="params">(lua_State *L)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* lobject.h */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Variant tags for functions */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TLCL  (LUA_TFUNCTION | (0 &lt;&lt; 4))  <span class="comment">/* Lua closure */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TLCF  (LUA_TFUNCTION | (1 &lt;&lt; 4))  <span class="comment">/* light C function */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TCCL  (LUA_TFUNCTION | (2 &lt;&lt; 4))  <span class="comment">/* C closure */</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Closures */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> CClosure &#123;</span><br><span class="line">  GCObject *next;</span><br><span class="line">  lu_byte tt;</span><br><span class="line">  lu_byte marked;</span><br><span class="line">  lu_byte nupvalues;  <span class="comment">/* nums of upvalue */</span></span><br><span class="line">  GCObject *gclist;</span><br><span class="line">  lua_CFunction f;</span><br><span class="line">  TValue upvalue[<span class="number">1</span>];  <span class="comment">/* list of upvalues */</span></span><br><span class="line">&#125; CClosure;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> LClosure &#123;</span><br><span class="line">  GCObject *next;</span><br><span class="line">  lu_byte tt;</span><br><span class="line">  lu_byte marked;</span><br><span class="line">  lu_byte nupvalues;  <span class="comment">/* nums of upvalue */</span></span><br><span class="line">  GCObject *gclist;</span><br><span class="line">  <span class="keyword">struct</span> Proto *p;</span><br><span class="line">  UpVal *upvals[<span class="number">1</span>];   <span class="comment">/* list of upvalues */</span></span><br><span class="line">&#125; LClosure;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> Closure &#123;</span><br><span class="line">  CClosure c;</span><br><span class="line">  LClosure l;</span><br><span class="line">&#125; Closure;</span><br></pre></td></tr></table></figure></p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Lua-源码分析/">Lua 源码分析</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/11/25/Lua 源码分析/Lua 数据结构--Closure/#more">more</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Lua 源码分析/Lua 数据结构--Table(二)" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -428,71 +492,6 @@
 
 
   
-    <article id="post-Lua 源码分析/Lua 数据结构--TValue" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/11/18/Lua 源码分析/Lua 数据结构--TValue/" class="article-date">
-  	<time datetime="2016-11-18T13:32:00.000Z" itemprop="datePublished">2016-11-18</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/18/Lua 源码分析/Lua 数据结构--TValue/">Lua 数据结构--TValue</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="TValue"><a href="#TValue" class="headerlink" title="TValue"></a><strong>TValue</strong></h3><p>　　TValue 是实现 Lua 弱数据类型的主要数据结构。所有关于 lua 数据值的操作都会涉及到 TValue。因此 TValue 贯穿了整个 Lua 的实现。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* lua.h */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TNONE         (-1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TNIL            0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TBOOLEAN        1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TLIGHTUSERDATA  2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TNUMBER         3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TSTRING         4</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TTABLE          5</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TFUNCTION       6</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TUSERDATA       7</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LUA_TTHREAD         8</span></span><br></pre></td></tr></table></figure></p>
-<p>　　在 lua.h 中的宏定义列出了 lua 语法中所涉及的所有基础类型。但实际上 lua 在内部实现上会对这些基础数据类型进行更细粒度的划分，例如：LUA_TSTRING 在 lua 的实现层面会分成 LUA_TSHRSTR 和 LUA_TLNGSTR 。<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/lua/">lua</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Lua-源码分析/">Lua 源码分析</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/11/18/Lua 源码分析/Lua 数据结构--TValue/#more">more</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/">Next</a>
@@ -503,7 +502,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-center">
-    		&copy; 2018 Astone
+    		&copy; 2019 Astone
     	</div>
     </div>
   </div>

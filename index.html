@@ -110,7 +110,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
+						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
 					</div>
 				</section>
 				
@@ -171,6 +171,69 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Nginx/Nginx 配置优化" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/03/09/Nginx/Nginx 配置优化/" class="article-date">
+  	<time datetime="2019-03-09T04:44:00.000Z" itemprop="datePublished">2019-03-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/09/Nginx/Nginx 配置优化/">Nginx 配置优化</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h3><p>　　Nginx 中有非常丰富的参数来帮助我们根据项目的实际情况优化 nginx 的性能。</p>
+<h3 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a><strong>全局配置</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">user nginx;</span><br><span class="line">worker_processes auto;</span><br><span class="line">worker_rlimit_nofile 65535;</span><br></pre></td></tr></table></figure>
+<p><strong>user</strong> 决定了 nginx 的 worker 运行的权限，一般我们不希望 nginx 的 worker 拥有 root 权限。<br><strong>worker_processes</strong> 定义了 nginx 对外提供服务时的 worker 进程数。通常我们会设置成 auto，nginx 会启动和 CPU 核心数量相同的 worker。<br><strong>worker_rlimit_nofile</strong> 定义了 worker 能够打开的文件描述符的数量，如果没有设置则会使用 <code>ulimit -n</code> 返回的数量。过小的值会导致新连接建立是返回 <code>too many open files</code> 错误。</p>
+<h3 id="Event-模块"><a href="#Event-模块" class="headerlink" title="Event 模块"></a><strong>Event 模块</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">events &#123; </span><br><span class="line">    worker_connections 2048;</span><br><span class="line">    multi_accept on;</span><br><span class="line">    use epoll;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2019/03/09/Nginx/Nginx 配置优化/#more">more</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-数据结构与算法/数据结构与算法--Newton&#39;s Method" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -427,74 +490,6 @@
 
 
   
-    <article id="post-数据结构与算法/数据结构与算法--AC Automaton" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/07/数据结构与算法/数据结构与算法--AC Automaton/" class="article-date">
-  	<time datetime="2016-12-07T06:43:00.000Z" itemprop="datePublished">2016-12-07</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/07/数据结构与算法/数据结构与算法--AC Automaton/">数据结构与算法--AC Automaton</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>　　AC 自动机 (Aho-Corasick Automation) 是由 Alfred V. Aho 和 Margaret J.Corasick 发明的字符串匹配算法. 用于处理一个字符串匹配多个模式串的情景. 与普通字符串匹配的不同点在于, 它能同时与所有的模式串进行匹配, 算法的平均时间复杂度为log(N+M).<br>　　AC 自动机通过在构造的 Trie 树中添加失败指针构造一个有限状态机来实现. Trie 树允许同时对所有的模式串进行匹配, 而失败指针允许在查找字符串失败时进行回退, 转向失败后缀匹配的前缀, 免于重复匹配前缀, 提高算法效率.<br>　　样例, 假设模式串 {“he”, “she”, “his”, “hers”} 建立 Trie 树.<br>　　如图所示:</p>
-<center><img src="/source_img/ac_automaton_1.png" alt="ac_automaton_1"></center>
-
-<p>　　然后, 为 Trie 树的每个节点增加失败指针. 失败指针的规则有两条: 第一, 将第二层的所有节点的失败指针指向根节点. 第二, 其他节点在父节点的失败指针所指向节点的孩子节点中查找相同值的节点, 如果有则指向该具有相同值的节点, 否则指向根节点. 下图中增加的虚线为失败指针, <strong>注意, 指向根节点的失败指针图中未标出</strong>.<br>　　如图所示:</p>
-<p><center><img src="/source_img/ac_automaton_2.png" alt="ac_automaton_2"></center><br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/algorithm/">algorithm</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/数据结构与算法/">数据结构与算法</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/12/07/数据结构与算法/数据结构与算法--AC Automaton/#more">more</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next</a>
@@ -505,7 +500,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-center">
-    		&copy; 2018 Astone
+    		&copy; 2019 Astone
     	</div>
     </div>
   </div>

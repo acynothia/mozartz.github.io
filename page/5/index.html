@@ -110,7 +110,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
+						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
 					</div>
 				</section>
 				
@@ -171,6 +171,99 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-x86 汇编学习/x86 汇编学习--Intel 与 AT&amp;T 汇编" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/04/x86 汇编学习/x86 汇编学习--Intel 与 AT&T 汇编/" class="article-date">
+  	<time datetime="2016-10-04T02:11:00.000Z" itemprop="datePublished">2016-10-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/04/x86 汇编学习/x86 汇编学习--Intel 与 AT&T 汇编/">x86 汇编学习--Intel 与 AT&amp;T 汇编</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="操作数前缀"><a href="#操作数前缀" class="headerlink" title="操作数前缀"></a><strong>操作数前缀</strong></h3><p>　　在 Intel 语法中，寄存器和立即数都没有前缀，十六进制和二进制的立即数用 h 和 b 作为后缀，但是在内存单元操作数前面需要加上 byte ptr、word ptr 和 dword ptr 来指示指针的单位偏移量。在 AT&amp;T 中，寄存器冠以 %, 立即数冠以 $, 十六进制立即数用 0x 作为前缀。</p>
+<div style="width:80%; margin:0px left;">
+
+<table>
+<thead>
+<tr>
+<th>Intel 语法　　　　　　　　</th>
+<th>AT&amp;T 语法　　　　　　　　</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mov eax, 8</td>
+<td>movl $8,    %eax</td>
+</tr>
+<tr>
+<td>mov ebx, FFh</td>
+<td>movl $0xFF, %eax</td>
+</tr>
+<tr>
+<td>int 80h</td>
+<td>int  $0x80</td>
+</tr>
+<tr>
+<td>mov eax, dword ptr [ebx]</td>
+<td>movl (%ebx), %eax　　　</td>
+</tr>
+</tbody>
+</table>
+<p></div><!--cc-->
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/asm/">asm</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/x86-汇编学习/">x86 汇编学习</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/10/04/x86 汇编学习/x86 汇编学习--Intel 与 AT&T 汇编/#more">more</a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-x86 汇编学习/x86 汇编学习--入门 (二)" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -427,71 +520,6 @@
 
 
   
-    <article id="post-TCP 协议分析/TCP 协议分析--Nagle" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/09/29/TCP 协议分析/TCP 协议分析--Nagle/" class="article-date">
-  	<time datetime="2016-09-29T14:41:00.000Z" itemprop="datePublished">2016-09-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/29/TCP 协议分析/TCP 协议分析--Nagle/">TCP 协议分析--Nagle</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h3><p>　　TCP 协议中，无论发送多小数据，都要需要协议头。同时，接收方发送 ACK 的时候也需要协议头。这样， 如果网络中存在大量的小数据包就会造成网络利用率很低。为了尽可能的利用网络带宽，TCP 希望尽可能的发送足够大的数据，以提高网络利用率。MSS (Maximum Segment Size, 最大报文段长度) 是在 TCP 连接建立时，收发双方协商通信时每一个报文段所能承载的最大数据长度。而 Nagle 算法的目的就是为了尽可能的减少小数据包, 发送 MSS 大小的数据包。</p>
-<h3 id="Nagle"><a href="#Nagle" class="headerlink" title="Nagle"></a><strong>Nagle</strong></h3><p>　　Nagle算法的基本定义是<strong>任意时刻，最多只能有一个未被确认的小段</strong>。 所谓“小段”，指的是小于 MSS 尺寸的数据块，所谓“未被确认”，是指一个数据块发送出去后，没有收到对方发送的 ACK。注意: 这里 Nalge 算法在未收到小包的 ACK 仍然能够发送 MSS 大小的数据, 而可发送的数量依赖于上一次 ACK 中附带的接收窗口的大小, 即<a href="http://astone.space/2016/09/27/TCP%20%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90/TCP%20%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90--%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口机制</a>.<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TCP/">TCP</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/TCP-协议分析/">TCP 协议分析</a>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a  href="/2016/09/29/TCP 协议分析/TCP 协议分析--Nagle/#more">more</a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">Next</a>
@@ -502,7 +530,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-center">
-    		&copy; 2018 Astone
+    		&copy; 2019 Astone
     	</div>
     </div>
   </div>
