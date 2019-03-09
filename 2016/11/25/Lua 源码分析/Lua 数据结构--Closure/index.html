@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://astone.space/2016/11/25/Lua 源码分析/Lua 数据结构--Closure/index.html">
 <meta property="og:site_name" content="Astone">
 <meta property="og:description" content="Closure　　在 lua 中函数是作为第一类值存在的，即它和表、字符串、数值一样可以被变量引用。函数有三种类型 lua 函数 (LUA_TLCL)、轻量级 C 函数 (LUA_TLCF)、C 函数 (LUA_TCCL)。其中 LUA_TLCL 和 LUA_TCCL 属于 GCUnion–需要被回收的类型，被称为 Closure。当 LUA_TCCL 不包含 upvalue 时，直接用 C 函数">
-<meta property="og:updated_time" content="2018-02-13T03:23:22.000Z">
+<meta property="og:updated_time" content="2019-03-09T11:25:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lua 数据结构--Closure">
 <meta name="twitter:description" content="Closure　　在 lua 中函数是作为第一类值存在的，即它和表、字符串、数值一样可以被变量引用。函数有三种类型 lua 函数 (LUA_TLCL)、轻量级 C 函数 (LUA_TLCF)、C 函数 (LUA_TCCL)。其中 LUA_TLCL 和 LUA_TCCL 属于 GCUnion–需要被回收的类型，被称为 Closure。当 LUA_TCCL 不包含 upvalue 时，直接用 C 函数">

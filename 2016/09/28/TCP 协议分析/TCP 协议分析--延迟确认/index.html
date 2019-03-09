@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://astone.space/2016/09/28/TCP 协议分析/TCP 协议分析--延迟确认/index.html">
 <meta property="og:site_name" content="Astone">
 <meta property="og:description" content="前言　　TCP 协议采用两种方式来发送 ACK, 快速确认和延迟确认. 在快速确认模式中, 本端接收到数据包后, 会立即发送 ACK 给对端. 在延迟确认模式中, 本端接收到数据包后, 不会立即发送 ACK 给对端, 而是等待一段时间, 如果在此期间：如果本端有数据包要发送给对端, 就在发送数据包的时候捎带上此 ACK, 如此一来就节省了一个报文; 如果本端没有数据包要发送给对端, 延迟确认定时器">
-<meta property="og:updated_time" content="2018-02-13T03:13:35.000Z">
+<meta property="og:updated_time" content="2019-03-09T11:25:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP 协议分析--延迟确认">
 <meta name="twitter:description" content="前言　　TCP 协议采用两种方式来发送 ACK, 快速确认和延迟确认. 在快速确认模式中, 本端接收到数据包后, 会立即发送 ACK 给对端. 在延迟确认模式中, 本端接收到数据包后, 不会立即发送 ACK 给对端, 而是等待一段时间, 如果在此期间：如果本端有数据包要发送给对端, 就在发送数据包的时候捎带上此 ACK, 如此一来就节省了一个报文; 如果本端没有数据包要发送给对端, 延迟确认定时器">

@@ -15,7 +15,7 @@
 <meta property="og:description" content="最近研究数据统计方面的知识. 在知乎上看到别人扒皮某网红. 通过对网红的文章标题进行词频统计, 生成标签云. 然后大概就能够了解他的关注的话题, 文章风格等等. 需要使用两个 python 库, wordcloud 和 jieba. wordcloud 用于生成标签云, jieba 用于进行中文分词.　　效果图如下:
 　　核心代码如下:1234567891011121314# Noveljie">
 <meta property="og:image" content="http://astone.space/img/novel.png">
-<meta property="og:updated_time" content="2018-02-13T03:06:14.000Z">
+<meta property="og:updated_time" content="2019-03-09T11:25:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 小工具--标签云与中文分词">
 <meta name="twitter:description" content="最近研究数据统计方面的知识. 在知乎上看到别人扒皮某网红. 通过对网红的文章标题进行词频统计, 生成标签云. 然后大概就能够了解他的关注的话题, 文章风格等等. 需要使用两个 python 库, wordcloud 和 jieba. wordcloud 用于生成标签云, jieba 用于进行中文分词.　　效果图如下:
@@ -220,7 +220,7 @@
         <p>　　最近研究数据统计方面的知识. 在知乎上看到别人扒皮某网红. 通过对网红的文章标题进行词频统计, 生成标签云. 然后大概就能够了解他的关注的话题, 文章风格等等. 需要使用两个 python 库, wordcloud 和 jieba. wordcloud 用于生成标签云, jieba 用于进行中文分词.<br>　　效果图如下:</p>
 <p><center><img src="/img/novel.png" alt="novel"></center><br>　　核心代码如下:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Novel</span></span><br><span class="line">jieba.setLogLevel(<span class="number">60</span>)</span><br><span class="line">jieba.suggest_freq(<span class="string">u'江离欲'</span>, <span class="keyword">True</span>)</span><br><span class="line">jieba.suggest_freq(<span class="string">u'鹤鸣山'</span>, <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">novel_content = open(os.path.join(dirname, <span class="string">'novel.txt'</span>)).read()</span><br><span class="line">segment = jieba.cut(novel_content)</span><br><span class="line">segment = <span class="string">' '</span>.join(segment)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Generate novel</span></span><br><span class="line">novel_mask = np.array(image.open(os.path.join(dirname, <span class="string">'novel_mask.png'</span>)))</span><br><span class="line">wctag = WordCloud(background_color = <span class="string">'white'</span>, max_words = <span class="number">2000</span>, mask = novel_mask, font_path = <span class="string">'msyh.ttf'</span>)</span><br><span class="line">wctag.generate(segment)</span><br><span class="line">wctag.to_file(os.path.join(dirname, <span class="string">'novel.png'</span>))</span><br></pre></td></tr></table></figure></p>
 <p>　　在中文中经常有一些专有名词, 如人名, 地名等. 这些词没法很好的分词, 可以使用 suggest_freq 来进行强制分词. 另外, <strong>使用 Pillow 替代 PIL</strong>.</p>
-<p><em>完整代码 <a href="http://git.oschina.net/astone123/python" target="_blank" rel="external">http://git.oschina.net/astone123/python</a></em></p>
+<p><em>完整代码 <a href="https://gitee.com/gricks/python" target="_blank" rel="external">https://gitee.com/gricks/python</a></em></p>
 
       
     </div>
