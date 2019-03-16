@@ -4,18 +4,17 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>TCP 协议分析--延迟确认 | Astone</title>
+  <title>Tag: mysql | Astone</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言　　TCP 协议采用两种方式来发送 ACK, 快速确认和延迟确认. 在快速确认模式中, 本端接收到数据包后, 会立即发送 ACK 给对端. 在延迟确认模式中, 本端接收到数据包后, 不会立即发送 ACK 给对端, 而是等待一段时间, 如果在此期间：如果本端有数据包要发送给对端, 就在发送数据包的时候捎带上此 ACK, 如此一来就节省了一个报文; 如果本端没有数据包要发送给对端, 延迟确认定时器">
-<meta property="og:type" content="article">
-<meta property="og:title" content="TCP 协议分析--延迟确认">
-<meta property="og:url" content="http://astone.space/2016/09/28/TCP 协议分析/TCP 协议分析--延迟确认/index.html">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Astone">
+<meta property="og:url" content="http://astone.space/tags/mysql/index.html">
 <meta property="og:site_name" content="Astone">
-<meta property="og:description" content="前言　　TCP 协议采用两种方式来发送 ACK, 快速确认和延迟确认. 在快速确认模式中, 本端接收到数据包后, 会立即发送 ACK 给对端. 在延迟确认模式中, 本端接收到数据包后, 不会立即发送 ACK 给对端, 而是等待一段时间, 如果在此期间：如果本端有数据包要发送给对端, 就在发送数据包的时候捎带上此 ACK, 如此一来就节省了一个报文; 如果本端没有数据包要发送给对端, 延迟确认定时器">
-<meta property="og:updated_time" content="2019-03-09T11:25:28.000Z">
+<meta property="og:description">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TCP 协议分析--延迟确认">
-<meta name="twitter:description" content="前言　　TCP 协议采用两种方式来发送 ACK, 快速确认和延迟确认. 在快速确认模式中, 本端接收到数据包后, 会立即发送 ACK 给对端. 在延迟确认模式中, 本端接收到数据包后, 不会立即发送 ACK 给对端, 而是等待一段时间, 如果在此期间：如果本端有数据包要发送给对端, 就在发送数据包的时候捎带上此 ACK, 如此一来就节省了一个报文; 如果本端没有数据包要发送给对端, 延迟确认定时器">
+<meta name="twitter:title" content="Astone">
+<meta name="twitter:description">
   
     <link rel="alternative" href="/atom.xml" title="Astone" type="application/atom+xml">
   
@@ -171,84 +170,53 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-TCP 协议分析/TCP 协议分析--延迟确认" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap">
   
-    <div class="article-meta">
-      <a href="/2016/09/28/TCP 协议分析/TCP 协议分析--延迟确认/" class="article-date">
-  	<time datetime="2016-09-28T15:28:00.000Z" itemprop="datePublished">2016-09-28</time>
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/03/16/Mysql/Mysql 锁与事务/" class="archive-article-date">
+  	<time datetime="2019-03-16T04:44:00.000Z" itemprop="datePublished">3月 16</time>
 </a>
-    </div>
+        </div>
+    	 
   
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      TCP 协议分析--延迟确认
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/03/16/Mysql/Mysql 锁与事务/">Mysql 锁与事务</a>
     </h1>
   
 
-      </header>
-      
-      <div class="article-info article-info-post">
-        
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TCP/">TCP</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
 	</div>
 
-        
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/TCP-协议分析/">TCP 协议分析</a>
-	</div>
+          
 
-
+        </div>
         <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h3><p>　　TCP 协议采用两种方式来发送 ACK, 快速确认和延迟确认. 在快速确认模式中, 本端接收到数据包后, 会立即发送 ACK 给对端. 在延迟确认模式中, 本端接收到数据包后, 不会立即发送 ACK 给对端, 而是等待一段时间, 如果在此期间：如果本端有数据包要发送给对端, 就在发送数据包的时候捎带上此 ACK, 如此一来就节省了一个报文; 如果本端没有数据包要发送给对端, 延迟确认定时器会超时, 然后发送 ACK 给对端.</p>
-<h3 id="什么时候进行延迟确认"><a href="#什么时候进行延迟确认" class="headerlink" title="什么时候进行延迟确认 ?"></a><strong>什么时候进行延迟确认 ?</strong></h3><p>　　实际上, TCP 作为一个自适应的协议, 会在两种模式不断的切换, 比如双方数据交互处于乒乓模式时, 就会采用延时确认, 让 ACK 捎带在发送数据中, 以减少空 ACK.<br>　　在慢启动阶段, 由于接受窗口放大的很快, 需要尽快通知对端, 会采用快速确认模式. 如果网络发生波动, 例如丢包, 收到了对端的拥塞通知, 也会进入快速确认, 及时通告窗口大小. 进入快速模式后, 会有一个额度, 每次发送 ACK 都会减少, 用完就会进入延迟确认模式.<br>　　使用 TCP_QUICKACK 选项能够强制选择一种模式.</p>
-
-      
-    </div>
-    
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2016/09/29/TCP 协议分析/TCP 协议分析--Nagle/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          TCP 协议分析--Nagle
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2016/09/27/TCP 协议分析/TCP 协议分析--滑动窗口/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">TCP 协议分析--滑动窗口</div>
-      <strong class="article-nav-caption">></strong>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
 
-
-
-
-
-
-
+    
 
 </div>
       <footer id="footer">
@@ -271,9 +239,9 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false
 	}

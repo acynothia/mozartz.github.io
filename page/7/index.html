@@ -110,7 +110,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
+						<a href="/tags/TCP/" style="font-size: 18.57px;">TCP</a> <a href="/tags/algorithm/" style="font-size: 15.71px;">algorithm</a> <a href="/tags/asm/" style="font-size: 15.71px;">asm</a> <a href="/tags/elk/" style="font-size: 10px;">elk</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux/" style="font-size: 14.29px;">linux</a> <a href="/tags/lua/" style="font-size: 20px;">lua</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/note/" style="font-size: 17.14px;">note</a> <a href="/tags/python/" style="font-size: 12.86px;">python</a> <a href="/tags/unix/" style="font-size: 11.43px;">unix</a>
 					</div>
 				</section>
 				
@@ -171,6 +171,67 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-TCP 协议分析/TCP 协议分析--CLOSE_WAIT 状态" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/25/TCP 协议分析/TCP 协议分析--CLOSE_WAIT 状态/" class="article-date">
+  	<time datetime="2016-09-25T03:31:00.000Z" itemprop="datePublished">2016-09-25</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/25/TCP 协议分析/TCP 协议分析--CLOSE_WAIT 状态/">TCP 协议分析--CLOSE_WAIT 状态</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="CLOSE-WAIT"><a href="#CLOSE-WAIT" class="headerlink" title="CLOSE_WAIT"></a><strong>CLOSE_WAIT</strong></h4><p>　　<code>CLOSE_WAIT</code> 是在被动关闭连接情况下, 已经接收到了<code>FIN</code>, 但是还没有发送<code>FIN</code>的时刻, 此时连接处于<code>CLOSE_WAIT</code>状态. 通常来讲, <code>CLOSE_WAIT</code> 状态的持续时间应该很短, 正如<code>SYN_RCVD</code>状态. 但是在一些特殊情况下, 就会出现连接长时间处于<code>CLOSE_WAIT</code>状态的情况.<br>　　主要原因: 在某种情况下对方关闭了<code>socket</code>连接, 但是我方忙于读或者写, 没有关闭连接.<br>　　一般说来, 如果出现大量的 <code>CLOSE_WAIT</code> 八成是在对端发送了<code>FIN</code>没有正确的处理<code>fd</code>造成的, 仔细检查<code>fd</code>的错误处理应该就能解决了.</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TCP/">TCP</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/TCP-协议分析/">TCP 协议分析</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-TCP 协议分析/TCP 协议分析--TIME_WAIT 状态" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -523,63 +584,6 @@
         <p class="article-more-link">
           <a  href="/2016/06/25/Linux/Linux 工程管理工具--CMake(一)/#more">more</a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Note/近期学习规划" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/13/Note/近期学习规划/" class="article-date">
-  	<time datetime="2016-06-13T15:12:00.000Z" itemprop="datePublished">2016-06-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/13/Note/近期学习规划/">近期学习规划</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>　　最近回顾了 TCP 协议的要点、汇编入门、学习 lua 和 lua 源代码、学习 skynet 框架、用 python 做了一些小工具。虽然学习的内容有些杂乱，不过都是用于降低学习曲线的基础知识。目的是为了实现搭积木一样的游戏服务器框架。用框架提供的 API 编写出各种服务，将各种服务组合成游戏服务。<br>　　首先参考了云大的 skynet 框架。skynet 使用 lua 作为辅助开发语言，需要对 lua 比较熟悉。于是开始学习 lua，lua 的指令执行类似于汇编，同时 lua 与 C 语言交互是通过栈来实现的。学习汇编能够降低学习曲线。至于 TCP 协议，作为服务框架自然是必不可少的。于是就形成了上面的学习流程。<br>　　后面的学习主要在实现 gateway_server 然后从 gateway_server 中抽离框架中的东西作为框架的基础功能。用 python 实现一个轻量级的 ORM Build 工具。用 CMake 进行工程组织。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/note/">note</a></li></ul>
-	</div>
-
-      
-
       
       <div class="clearfix"></div>
     </div>
